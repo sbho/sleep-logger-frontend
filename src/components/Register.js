@@ -15,7 +15,6 @@ export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordScore, setPasswordScore] = useState(0);
   const [password_confirmation, setPasswordConfirmation] = useState("");
 
   const [passwordSnackbarOpen, setPasswordSnackbarOpen] = useState(false);
@@ -25,8 +24,28 @@ export default function Register() {
     false
   );
   const [
-    passwordTooWeakSnackbarOpen,
-    setPasswordTooWeakSnackbarOpen,
+    passwordTooShortSnackbarOpen,
+    setPasswordTooShortSnackbarOpen,
+  ] = useState(false);
+
+  const [
+    passwordTooLongSnackbarOpen,
+    setPasswordTooLongSnackbarOpen,
+  ] = useState(false);
+
+  const [
+    passwordMustContainUppercaseSnackbarOpen,
+    setPasswordMustContainUppercaseOpen,
+  ] = useState(false);
+
+  const [
+    passwordMustContainLowercaseSnackbarOpen,
+    setPasswordMustContainLowercaseSnackbarOpen,
+  ] = useState(false);
+
+  const [
+    passwordMustContainNumberOpen,
+    setPasswordMustContainNumberOpen,
   ] = useState(false);
 
   const history = useHistory();
@@ -58,8 +77,28 @@ export default function Register() {
       return;
     }
 
-    if (passwordScore < 3) {
-      setPasswordTooWeakSnackbarOpen(true);
+    if (password.length < 6) {
+      setPasswordTooShortSnackbarOpen(true);
+      return;
+    }
+
+    if (password.length > 23) {
+      setPasswordTooLongSnackbarOpen(true);
+      return;
+    }
+
+    if (!/[a-z]/.test(password)) {
+      setPasswordMustContainLowercaseSnackbarOpen(true);
+      return;
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      setPasswordMustContainUppercaseOpen(true);
+      return;
+    }
+
+    if (!/[0-9]/.test(password)) {
+      setPasswordMustContainNumberOpen(true);
       return;
     }
 
@@ -130,13 +169,10 @@ export default function Register() {
                 onChange={handlePasswordChange}
                 label="Password"
                 type="password"
+                helperText={
+                  "Use between 6 and 23 characters inclusive, with at least one uppercase character, one lowercase character, and one number."
+                }
                 fullWidth
-              />
-            </Box>
-            <Box mx={2} my={1} align={"center"} width={0.25}>
-              <PasswordStrengthBar
-                password={password}
-                onChangeScore={(score) => setPasswordScore(score)}
               />
             </Box>
             <Box p={2} align={"center"}>
@@ -171,8 +207,36 @@ export default function Register() {
         <MuiAlert severity={"error"}>Invalid email.</MuiAlert>
       </Snackbar>
 
-      <Snackbar open={passwordTooWeakSnackbarOpen} autoHideDuration={3000}>
-        <MuiAlert severity={"error"}>Password is too weak.</MuiAlert>
+      <Snackbar open={passwordTooShortSnackbarOpen} autoHideDuration={3000}>
+        <MuiAlert severity={"error"}>Password is too short.</MuiAlert>
+      </Snackbar>
+
+      <Snackbar open={passwordTooLongSnackbarOpen} autoHideDuration={3000}>
+        <MuiAlert severity={"error"}>Password is too long.</MuiAlert>
+      </Snackbar>
+
+      <Snackbar
+        open={passwordMustContainUppercaseSnackbarOpen}
+        autoHideDuration={3000}
+      >
+        <MuiAlert severity={"error"}>
+          Password is must container at least one uppercase character.
+        </MuiAlert>
+      </Snackbar>
+
+      <Snackbar
+        open={passwordMustContainLowercaseSnackbarOpen}
+        autoHideDuration={3000}
+      >
+        <MuiAlert severity={"error"}>
+          Password is must container at least one lowercase character.
+        </MuiAlert>
+      </Snackbar>
+
+      <Snackbar open={passwordMustContainNumberOpen} autoHideDuration={3000}>
+        <MuiAlert severity={"error"}>
+          Password is must container at least one number.
+        </MuiAlert>
       </Snackbar>
 
       <Snackbar open={userCreatedSnackbarOpen} autoHideDuration={3000}>
