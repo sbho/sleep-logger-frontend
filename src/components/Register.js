@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PasswordStrengthBar from "react-password-strength-bar/";
 import Paper from "@material-ui/core/Paper";
 import Snackbar from "@material-ui/core/Snackbar";
 import Box from "@material-ui/core/Box";
@@ -13,7 +14,19 @@ export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordScore, setPasswordScore] = useState(0);
   const [password_confirmation, setPasswordConfirmation] = useState("");
+
+  const [passwordSnackbarOpen, setPasswordSnackbarOpen] = useState(false);
+  const [emptyFieldSnackbarOpen, setEmptyFieldSnackbarOpen] = useState(false);
+  const [userCreatedSnackbarOpen, setUserCreatedSnackbarOpen] = useState(false);
+  const [invalidEmailSnackbarOpen, setInvalidEmailSnackbarOpen] = useState(
+    false
+  );
+  const [
+    passwordTooWeakSnackbarOpen,
+    setPasswordTooWeakSnackbarOpen,
+  ] = useState(false);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -31,17 +44,19 @@ export default function Register() {
     setPasswordConfirmation(e.target.value);
   };
 
-  const [passwordSnackbarOpen, setPasswordSnackbarOpen] = React.useState(false);
-  const [emptyFieldSnackbarOpen, setEmptyFieldSnackbarOpen] = React.useState(
-    false
-  );
-  const [userCreatedSnackbarOpen, setUserCreatedSnackbarOpen] = React.useState(
-    false
-  );
-
   const handleSubmit = (e) => {
     if (password !== password_confirmation) {
       setPasswordSnackbarOpen(true);
+      return;
+    }
+
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/.test(email)) {
+      setInvalidEmailSnackbarOpen(true);
+      return;
+    }
+
+    if (passwordScore < 3) {
+      setPasswordTooWeakSnackbarOpen(true);
       return;
     }
 
@@ -112,6 +127,12 @@ export default function Register() {
                 fullWidth
               />
             </Box>
+            <Box mx={2} my={1} align={"center"} width={0.25}>
+              <PasswordStrengthBar
+                password={password}
+                onChangeScore={(score) => setPasswordScore(score)}
+              />
+            </Box>
             <Box p={2} align={"center"}>
               <TextField
                 id="password_confirmation"
@@ -138,6 +159,16 @@ export default function Register() {
 
       <Snackbar open={emptyFieldSnackbarOpen} autoHideDuration={3000}>
         <MuiAlert severity={"error"}>One or more field is empty.</MuiAlert>
+      </Snackbar>
+
+      <Snackbar open={invalidEmailSnackbarOpen} autoHideDuration={3000}>
+        <MuiAlert severity={"error"}>Invalid email.</MuiAlert>
+      </Snackbar>
+
+      <Snackbar open={passwordTooWeakSnackbarOpen} autoHideDuration={3000}>
+        <MuiAlert severity={"error"}>
+          Password is too weak. {passwordScore}
+        </MuiAlert>
       </Snackbar>
 
       <Snackbar open={userCreatedSnackbarOpen} autoHideDuration={3000}>
