@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import HomeNavBar from "./nav/HomeNavBar";
 import MuiAlert from "@material-ui/lab/Alert";
+import { useHistory } from "react-router-dom";
 
 //Registration page
 export default function Register() {
@@ -27,6 +28,8 @@ export default function Register() {
     passwordTooWeakSnackbarOpen,
     setPasswordTooWeakSnackbarOpen,
   ] = useState(false);
+
+  const history = useHistory();
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -90,8 +93,11 @@ export default function Register() {
       method: "POST",
       headers: headers,
       body: JSON.stringify(body),
-    }).then(setUserCreatedSnackbarOpen);
+    })
+      .then(setUserCreatedSnackbarOpen)
+      .then(setTimeout(() => history.push("/login"), 3000));
   };
+
   return (
     <div>
       <HomeNavBar />
@@ -173,7 +179,7 @@ export default function Register() {
 
       <Snackbar open={userCreatedSnackbarOpen} autoHideDuration={3000}>
         <MuiAlert severity={"success"}>
-          User created. Please proceed to log in.
+          User created. Please proceed to login. Redirecting...
         </MuiAlert>
       </Snackbar>
     </div>
