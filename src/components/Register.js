@@ -172,9 +172,7 @@ export default function Register() {
       </Snackbar>
 
       <Snackbar open={passwordTooWeakSnackbarOpen} autoHideDuration={3000}>
-        <MuiAlert severity={"error"}>
-          Password is too weak. {passwordScore}
-        </MuiAlert>
+        <MuiAlert severity={"error"}>Password is too weak.</MuiAlert>
       </Snackbar>
 
       <Snackbar open={userCreatedSnackbarOpen} autoHideDuration={3000}>
