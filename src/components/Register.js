@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PasswordStrengthBar from "react-password-strength-bar/";
 import Paper from "@material-ui/core/Paper";
 import Snackbar from "@material-ui/core/Snackbar";
 import Box from "@material-ui/core/Box";
@@ -15,7 +14,7 @@ export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [password_confirmation, setPasswordConfirmation] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
   const [passwordSnackbarOpen, setPasswordSnackbarOpen] = useState(false);
   const [emptyFieldSnackbarOpen, setEmptyFieldSnackbarOpen] = useState(false);
@@ -23,6 +22,7 @@ export default function Register() {
   const [invalidEmailSnackbarOpen, setInvalidEmailSnackbarOpen] = useState(
     false
   );
+
   const [
     passwordTooShortSnackbarOpen,
     setPasswordTooShortSnackbarOpen,
@@ -48,6 +48,8 @@ export default function Register() {
     setPasswordMustContainNumberOpen,
   ] = useState(false);
 
+  const [invalidNameSnackbarOpen, setInvalidNameSnackbarOpen] = useState(false);
+
   const history = useHistory();
 
   const handleNameChange = (e) => {
@@ -67,8 +69,23 @@ export default function Register() {
   };
 
   const handleSubmit = (e) => {
-    if (password !== password_confirmation) {
+    if (
+      name === "" ||
+      email === "" ||
+      password === "" ||
+      passwordConfirmation === ""
+    ) {
+      setEmptyFieldSnackbarOpen(true);
+      return;
+    }
+
+    if (password !== passwordConfirmation) {
       setPasswordSnackbarOpen(true);
+      return;
+    }
+
+    if (!/^[A-Za-z\s]+$/.test(name)) {
+      setInvalidNameSnackbarOpen(true);
       return;
     }
 
@@ -99,16 +116,6 @@ export default function Register() {
 
     if (!/[0-9]/.test(password)) {
       setPasswordMustContainNumberOpen(true);
-      return;
-    }
-
-    if (
-      name === "" ||
-      email === "" ||
-      password === "" ||
-      password_confirmation === ""
-    ) {
-      setEmptyFieldSnackbarOpen(true);
       return;
     }
 
@@ -199,6 +206,14 @@ export default function Register() {
         </MuiAlert>
       </Snackbar>
 
+      <Snackbar open={invalidNameSnackbarOpen} autoHideDuration={3000}>
+        <MuiAlert severity={"error"}>
+          We only accept names between 2 and 30 characters inclusive, with only
+          lowercase letters, uppercase letters and whitespaces. Sorry if we
+          missed you!
+        </MuiAlert>
+      </Snackbar>
+
       <Snackbar open={emptyFieldSnackbarOpen} autoHideDuration={3000}>
         <MuiAlert severity={"error"}>One or more field is empty.</MuiAlert>
       </Snackbar>
@@ -220,7 +235,7 @@ export default function Register() {
         autoHideDuration={3000}
       >
         <MuiAlert severity={"error"}>
-          Password is must container at least one uppercase character.
+          Password must have at least one uppercase character.
         </MuiAlert>
       </Snackbar>
 
@@ -229,13 +244,13 @@ export default function Register() {
         autoHideDuration={3000}
       >
         <MuiAlert severity={"error"}>
-          Password is must container at least one lowercase character.
+          Password must have at least one lowercase character.
         </MuiAlert>
       </Snackbar>
 
       <Snackbar open={passwordMustContainNumberOpen} autoHideDuration={3000}>
         <MuiAlert severity={"error"}>
-          Password is must container at least one number.
+          Password must have at least one number.
         </MuiAlert>
       </Snackbar>
 

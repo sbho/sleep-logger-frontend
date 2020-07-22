@@ -13,7 +13,42 @@ export default function Account(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [password_confirmation, setPasswordConfirmation] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [
+    passwordConfirmationNotMachingSnackbarOpen,
+    setPasswordConfirmationNotMachingSnackbarOpen,
+  ] = useState(false);
+  const [emptyFieldSnackbarOpen, setEmptyFieldSnackbarOpen] = useState(false);
+  const [userCreatedSnackbarOpen, setUserCreatedSnackbarOpen] = useState(false);
+  const [invalidEmailSnackbarOpen, setInvalidEmailSnackbarOpen] = useState(
+    false
+  );
+  const [
+    passwordTooShortSnackbarOpen,
+    setPasswordTooShortSnackbarOpen,
+  ] = useState(false);
+
+  const [
+    passwordTooLongSnackbarOpen,
+    setPasswordTooLongSnackbarOpen,
+  ] = useState(false);
+
+  const [
+    passwordMustContainUppercaseSnackbarOpen,
+    setPasswordMustContainUppercaseOpen,
+  ] = useState(false);
+
+  const [
+    passwordMustContainLowercaseSnackbarOpen,
+    setPasswordMustContainLowercaseSnackbarOpen,
+  ] = useState(false);
+
+  const [
+    passwordMustContainNumberOpen,
+    setPasswordMustContainNumberOpen,
+  ] = useState(false);
+
+  const [invalidNameSnackbarOpen, setInvalidNameSnackbarOpen] = useState(false);
 
   useEffect(() => {
     const BASE_URL = "https://sleep-logger-dev.herokuapp.com";
@@ -52,28 +87,56 @@ export default function Account(props) {
     setPasswordConfirmation(e.target.value);
   };
 
-  const [passwordSnackbarOpen, setPasswordSnackbarOpen] = React.useState(false);
-  const [emptyFieldSnackbarOpen, setEmptyFieldSnackbarOpen] = React.useState(
-    false
-  );
-  const [userCreatedSnackbarOpen, setUserCreatedSnackbarOpen] = React.useState(
-    false
-  );
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password !== password_confirmation) {
-      setPasswordSnackbarOpen(true);
-      return;
-    }
 
     if (
       name === "" ||
       email === "" ||
       password === "" ||
-      password_confirmation === ""
+      passwordConfirmation === ""
     ) {
       setEmptyFieldSnackbarOpen(true);
+      return;
+    }
+
+    if (password !== passwordConfirmation) {
+      setPasswordConfirmationNotMachingSnackbarOpen(true);
+      return;
+    }
+
+    if (!/^[A-Za-z]+$/.test(name)) {
+      setInvalidNameSnackbarOpen(true);
+      return;
+    }
+
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/.test(email)) {
+      setInvalidEmailSnackbarOpen(true);
+      return;
+    }
+
+    if (password.length < 6) {
+      setPasswordTooShortSnackbarOpen(true);
+      return;
+    }
+
+    if (password.length > 23) {
+      setPasswordTooLongSnackbarOpen(true);
+      return;
+    }
+
+    if (!/[a-z]/.test(password)) {
+      setPasswordMustContainLowercaseSnackbarOpen(true);
+      return;
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      setPasswordMustContainUppercaseOpen(true);
+      return;
+    }
+
+    if (!/[0-9]/.test(password)) {
+      setPasswordMustContainNumberOpen(true);
       return;
     }
 
@@ -134,6 +197,9 @@ export default function Account(props) {
                   label=" New password"
                   type="password"
                   fullWidth
+                  helperText={
+                    "Use between 6 and 23 characters inclusive, with at least one uppercase character, one lowercase character, and one number."
+                  }
                 />
               </Box>
               <Box p={2} align={"center"}>
@@ -155,9 +221,20 @@ export default function Account(props) {
         </Paper>
       </Box>
 
-      <Snackbar open={passwordSnackbarOpen} autoHideDuration={3000}>
+      <Snackbar
+        open={passwordConfirmationNotMachingSnackbarOpen}
+        autoHideDuration={3000}
+      >
         <MuiAlert severity={"error"}>
           Password and password confirmation do not match.
+        </MuiAlert>
+      </Snackbar>
+
+      <Snackbar open={invalidNameSnackbarOpen} autoHideDuration={3000}>
+        <MuiAlert severity={"error"}>
+          We only accept names between 2 and 30 characters inclusive, with only
+          lowercase letters, uppercase letters and whitespaces. Sorry if we
+          missed you!
         </MuiAlert>
       </Snackbar>
 
@@ -165,8 +242,46 @@ export default function Account(props) {
         <MuiAlert severity={"error"}>One or more field is empty.</MuiAlert>
       </Snackbar>
 
+      <Snackbar open={invalidEmailSnackbarOpen} autoHideDuration={3000}>
+        <MuiAlert severity={"error"}>Invalid email.</MuiAlert>
+      </Snackbar>
+
+      <Snackbar open={passwordTooShortSnackbarOpen} autoHideDuration={3000}>
+        <MuiAlert severity={"error"}>Password is too short.</MuiAlert>
+      </Snackbar>
+
+      <Snackbar open={passwordTooLongSnackbarOpen} autoHideDuration={3000}>
+        <MuiAlert severity={"error"}>Password is too long.</MuiAlert>
+      </Snackbar>
+
+      <Snackbar
+        open={passwordMustContainUppercaseSnackbarOpen}
+        autoHideDuration={3000}
+      >
+        <MuiAlert severity={"error"}>
+          Password must have at least one uppercase character.
+        </MuiAlert>
+      </Snackbar>
+
+      <Snackbar
+        open={passwordMustContainLowercaseSnackbarOpen}
+        autoHideDuration={3000}
+      >
+        <MuiAlert severity={"error"}>
+          Password must have at least one lowercase character.
+        </MuiAlert>
+      </Snackbar>
+
+      <Snackbar open={passwordMustContainNumberOpen} autoHideDuration={3000}>
+        <MuiAlert severity={"error"}>
+          Password must have at least one number.
+        </MuiAlert>
+      </Snackbar>
+
       <Snackbar open={userCreatedSnackbarOpen} autoHideDuration={3000}>
-        <MuiAlert severity={"success"}>Account information updated.</MuiAlert>
+        <MuiAlert severity={"success"}>
+          User created. Please proceed to login. Redirecting...
+        </MuiAlert>
       </Snackbar>
     </div>
   );
