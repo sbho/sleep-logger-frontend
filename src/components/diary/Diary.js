@@ -71,11 +71,11 @@ export default function Diary(props) {
       <Grid container spacing={8}>
         {/*Hide calendar and box on tablet and phone*/}
         <Hidden smDown>
-          <Grid item xs={5}>
-            <Box mx={"5%"} my={"5%"}>
+          <Grid item xs={5} justify={{ "flex-start": "center" }}>
+            <Box mx={"10%"} my={"5%"} width={"350px"}>
               <TipBox content={tip.content} onSave={handleSave} />
             </Box>
-            <Box p={5} pt={3} pb={3}>
+            <Box mx={"10%"} my={"5%"}>
               <Calendar />
             </Box>
           </Grid>
