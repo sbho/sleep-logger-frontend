@@ -6,6 +6,9 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import { Hidden } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import NightsStayIcon from "@material-ui/icons/NightsStay";
 import DiaryEveningPage from "./DiaryEveningPage";
@@ -19,6 +22,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 export default function Diary(props) {
   const [tabValue, setTabValue] = useState(0);
   const [tip, setTip] = useState({ id: 0, content: "" });
+  const [date, setDate] = useState(new Date());
   const [saveTipSnackbarOpen, setSaveTipSnackbarOpen] = useState(false);
 
   useEffect(() => {
@@ -63,8 +67,12 @@ export default function Diary(props) {
       <LoggedInNavBar history={props.history} />
       <Paper square>
         <Tabs value={tabValue} onChange={handleTabsChange} centered>
-          <Tab icon={<WbSunnyIcon />} label="Morning" {...a11yProps(0)} />
-          <Tab icon={<NightsStayIcon />} label="Evening" {...a11yProps(1)} />
+          <Tab icon={<WbSunnyIcon />} label="Morning entry" {...a11yProps(0)} />
+          <Tab
+            icon={<NightsStayIcon />}
+            label="Evening entry"
+            {...a11yProps(1)}
+          />
         </Tabs>
       </Paper>
 
@@ -76,11 +84,44 @@ export default function Diary(props) {
               <TipBox content={tip.content} onSave={handleSave} />
             </Box>
             <Box mx={"10%"} my={"5%"}>
-              <Calendar />
+              <Calendar onChange={(date) => setDate(date)} value={date} />
             </Box>
           </Grid>
         </Hidden>
         <Grid item sm={7}>
+          <Box my={"5%"} mx={"3%"}>
+            <table style={{ width: "100%" }}>
+              <tr>
+                <td align={"right"}>
+                  {/*Go back to the day before.*/}
+                  <IconButton
+                    onClick={() => {
+                      let prevDay = new Date();
+                      prevDay.setDate(date.getDate() - 1);
+                      setDate(prevDay);
+                    }}
+                  >
+                    <ArrowBackIosIcon />
+                  </IconButton>
+                </td>
+                <td align={"center"}>
+                  <Typography variant={"h5"}>{date.toDateString()}</Typography>
+                </td>
+                <td align={"left"}>
+                  {/*Go to the next day*/}
+                  <IconButton
+                    onClick={() => {
+                      let nextDay = new Date();
+                      nextDay.setDate(date.getDate() + 1);
+                      setDate(nextDay);
+                    }}
+                  >
+                    <ArrowForwardIosIcon />
+                  </IconButton>
+                </td>
+              </tr>
+            </table>
+          </Box>
           <TimeOfDayTabPanel value={tabValue} index={0}>
             <DiaryMorningPage />
           </TimeOfDayTabPanel>
