@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Typography } from "@material-ui/core/";
 import SmileyGroup from "./SmileyGroup";
 import Button from "@material-ui/core/Button";
@@ -6,29 +6,17 @@ import Box from "@material-ui/core/Box";
 import TimePicker from "./TimePicker";
 import Snackbar from "@material-ui/core/Snackbar";
 
-export default class DiaryMorningPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bed_time: this.textFieldTimeToISOString("07:30"),
-      wake_up_time: this.textFieldTimeToISOString("07:30"),
-      ease_of_sleep: 0,
-      hour_of_sleep: 0,
-      morning_feeling: 0,
-      saveEntrySnackbarOpen: false,
-    };
-  }
-
-  textFieldTimeToISOString(textFieldTime) {
-    const date = this.textFieldTimeToDate(textFieldTime);
+export default function DiaryMorningPage(props) {
+  const textFieldTimeToISOString = (textFieldTime) => {
+    const date = textFieldTimeToDate(textFieldTime);
     if (date === undefined) {
       return "";
     } else {
       return date.toISOString();
     }
-  }
+  };
 
-  textFieldTimeToDate(textFieldTime) {
+  const textFieldTimeToDate = (textFieldTime) => {
     if (textFieldTime === "") return;
     const timeArray = textFieldTime.split(":");
     const hr = parseInt(timeArray[0]);
@@ -45,40 +33,44 @@ export default class DiaryMorningPage extends React.Component {
       0
     );
     return date;
-  }
-
-  handleBedTimeChange = (e) => {
-    this.setState({ bed_time: this.textFieldTimeToISOString(e.target.value) });
   };
 
-  handleWakeUpTimeChange = (e) => {
-    this.setState({
-      wake_up_time: this.textFieldTimeToISOString(e.target.value),
-    });
+  const [bedTime, setBedTime] = useState(textFieldTimeToISOString("07:30"));
+  const [wakeUpTime, setWakeUpTime] = useState(
+    textFieldTimeToISOString("07:30")
+  );
+  const [easeOfSleep, setEaseOfSleep] = useState(0);
+  const [morningFeeling, setMorningFeeling] = useState(0);
+  const [saveEntrySnackbarOpen, setSaveEntrySnackbarOpen] = useState(false);
+
+  const handleBedTimeChange = (e) => {
+    setBedTime(textFieldTimeToISOString(e.target.value));
   };
 
-  handleEaseOfSleepChange = (e, newToggling) => {
-    this.setState({ ease_of_sleep: newToggling });
+  const handleWakeUpTimeChange = (e) => {
+    setWakeUpTime(textFieldTimeToISOString(e.target.value));
   };
 
-  handleMorningFeelingChange = (e, newToggling) => {
-    this.setState({ morning_feeling: newToggling });
+  const handleEaseOfSleepChange = (e, newToggling) => {
+    setEaseOfSleep(newToggling);
   };
 
-  handleSubmit = (e) => {
-    const st = this.state;
+  const handleMorningFeelingChange = (e, newToggling) => {
+    setMorningFeeling(newToggling);
+  };
+
+  const handleSubmit = (e) => {
     const MS_PER_HR = 60 * 60 * 1000;
-    const hoursOfSleep =
-      (new Date(st.wake_up_time) - new Date(st.bed_time)) / MS_PER_HR;
+    const hoursOfSleep = (new Date(wakeUpTime) - new Date(bedTime)) / MS_PER_HR;
 
     const BASE_URL = "https://sleep-logger-dev.herokuapp.com";
     const body = {
       morning_entry: {
-        bed_time: st.bed_time,
-        wake_up_time: st.wake_up_time,
-        ease_of_sleep: st.ease_of_sleep,
+        bed_time: bedTime,
+        wake_up_time: wakeUpTime,
+        ease_of_sleep: easeOfSleep,
         hours_of_sleep: hoursOfSleep,
-        morning_feeling: st.morning_feeling,
+        morning_feeling: morningFeeling,
       },
     };
 
@@ -93,77 +85,71 @@ export default class DiaryMorningPage extends React.Component {
       method: "POST",
       headers: headers,
       body: JSON.stringify(body),
-    }).then(this.setState({ saveEntrySnackbarOpen: true }));
+    }).then(setSaveEntrySnackbarOpen(true));
   };
 
-  render() {
-    return (
-      <div>
-        <Grid container spacing={10}>
-          <Grid container item xs={"6"}>
-            <Typography variant={"h5"}>
-              When did you sleep last night?
-            </Typography>
-          </Grid>
-          <Grid container item xs={"6"}>
-            <TimePicker onChange={this.handleBedTimeChange} />
-          </Grid>
+  return (
+    <div>
+      <Grid container spacing={10}>
+        <Grid container item xs={"6"}>
+          <Typography variant={"h5"}>When did you sleep last night?</Typography>
         </Grid>
-
-        <Grid container spacing={10}>
-          <Grid container item xs={"6"}>
-            <Typography variant={"h5"}>When did you wake up?</Typography>
-          </Grid>
-          <Grid container item xs={"6"}>
-            <TimePicker onChange={this.handleWakeUpTimeChange} />
-          </Grid>
+        <Grid container item xs={"6"}>
+          <TimePicker onChange={handleBedTimeChange} />
         </Grid>
+      </Grid>
 
-        <Grid container spacing={10}>
-          <Grid container item xs={"6"}>
-            <Typography variant={"h5"}>
-              Was it easy for you to sleep?
-            </Typography>
-          </Grid>
-          <Grid container item xs={"6"}>
-            <SmileyGroup
-              toggling={this.state.ease_of_sleep}
-              onChange={this.handleEaseOfSleepChange}
-            />
-          </Grid>
+      <Grid container spacing={10}>
+        <Grid container item xs={"6"}>
+          <Typography variant={"h5"}>When did you wake up?</Typography>
         </Grid>
-
-        <Grid container spacing={10}>
-          <Grid container item xs={"6"}>
-            <Typography variant={"h5"}>
-              How do you feel when you wake up?
-            </Typography>
-          </Grid>
-          <Grid container item xs={"6"}>
-            <SmileyGroup
-              toggling={this.state.morning_feeling}
-              onChange={this.handleMorningFeelingChange}
-            />
-          </Grid>
+        <Grid container item xs={"6"}>
+          <TimePicker onChange={handleWakeUpTimeChange} />
         </Grid>
+      </Grid>
 
-        <Box p={3} align={"center"}>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disableElevation
-            onClick={this.handleSubmit}
-          >
-            Save
-          </Button>
-        </Box>
-        <Snackbar
-          open={this.state.saveEntrySnackbarOpen}
-          autoHideDuration={3000}
-          message={"Entry saved."}
-        />
-      </div>
-    );
-  }
+      <Grid container spacing={10}>
+        <Grid container item xs={"6"}>
+          <Typography variant={"h5"}>Was it easy for you to sleep?</Typography>
+        </Grid>
+        <Grid container item xs={"6"}>
+          <SmileyGroup
+            toggling={easeOfSleep}
+            onChange={handleEaseOfSleepChange}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={10}>
+        <Grid container item xs={"6"}>
+          <Typography variant={"h5"}>
+            How do you feel when you wake up?
+          </Typography>
+        </Grid>
+        <Grid container item xs={"6"}>
+          <SmileyGroup
+            toggling={morningFeeling}
+            onChange={handleMorningFeelingChange}
+          />
+        </Grid>
+      </Grid>
+
+      <Box p={3} align={"center"}>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          disableElevation
+          onClick={handleSubmit}
+        >
+          Save
+        </Button>
+      </Box>
+      <Snackbar
+        open={saveEntrySnackbarOpen}
+        autoHideDuration={3000}
+        message={"Entry saved."}
+      />
+    </div>
+  );
 }
