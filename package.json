@@ -12,6 +12,7 @@
     "react": "^16.13.1",
     "react-add-to-calendar": "^0.1.5",
     "react-calendar": "^3.1.0",
+    "react-charts": "^2.0.0-beta.7",
     "react-dom": "^16.13.1",
     "react-player": "^2.3.1",
     "react-router": "^5.2.0",

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import ScatterChart from "./ScatterChart";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LoggedInNavBar from "../nav/LoggedInNavBar";
 import Typography from "@material-ui/core/Typography";
 import SmileyGroup from "../diary/SmileyGroup";
+import SLLineChart from "./SLLineChart";
+import SLBarChart from "./SLBarChart";
+import SLPieChart from "./SLPieChart";
 
 export default class Summary extends React.Component {
   constructor(props) {
@@ -15,6 +17,9 @@ export default class Summary extends React.Component {
       caffeineMorningData: [],
       caffeineAfternoon: [],
       caffeineEvening: [],
+      napMorning: [],
+      napAfternoon: [],
+      napEvening: [],
     };
   }
 
@@ -22,10 +27,39 @@ export default class Summary extends React.Component {
     this.setState({ morningFeeling: newToggling });
   };
 
+  toLoMedHiXYData = (data, fieldName) => {
+    let XYData = [];
+    data[fieldName].forEach((k) =>
+      XYData.push({
+        x:
+          k[fieldName] === 0
+            ? "None"
+            : k[fieldName] === 1
+            ? "Low"
+            : k[fieldName] === 2
+            ? "Medium"
+            : "High",
+        y: k.count,
+      })
+    );
+    return XYData;
+  };
+
   toXYData = (data, fieldName) => {
     let XYData = [];
     data[fieldName].forEach((k) =>
-      XYData.push({ x: k[fieldName], y: k.count })
+      XYData.push({
+        x: k[fieldName],
+        y: k.count,
+      })
+    );
+    return XYData;
+  };
+
+  toTrueFalsePieData = (data, fieldName) => {
+    let XYData = [];
+    data[fieldName].forEach((k) =>
+      XYData.push({ x: k[fieldName] ? "Yes" : "No", y: k.count })
     );
     return XYData;
   };
@@ -57,9 +91,12 @@ export default class Summary extends React.Component {
       .then((data) => {
         this.setState({
           hoursData: this.toXYData(data, "hours"),
-          caffeineMorning: this.toXYData(data, "caffeine_morning"),
-          caffeineAfternoon: this.toXYData(data, "caffeine_morning"),
-          caffeineEvening: this.toXYData(data, "caffeine_evening"),
+          caffeineMorning: this.toLoMedHiXYData(data, "caffeine_morning"),
+          caffeineAfternoon: this.toLoMedHiXYData(data, "caffeine_morning"),
+          caffeineEvening: this.toLoMedHiXYData(data, "caffeine_evening"),
+          napMorning: this.toTrueFalsePieData(data, "nap_morning"),
+          napAfternoon: this.toTrueFalsePieData(data, "nap_afternoon"),
+          napEvening: this.toTrueFalsePieData(data, "nap_evening"),
         });
       });
   }
@@ -91,25 +128,26 @@ export default class Summary extends React.Component {
       .then((data) => {
         this.setState({
           hoursData: this.toXYData(data, "hours"),
-          caffeineMorning: this.toXYData(data, "caffeine_morning"),
-          caffeineAfternoon: this.toXYData(data, "caffeine_morning"),
-          caffeineEvening: this.toXYData(data, "caffeine_evening"),
+          caffeineMorning: this.toLoMedHiXYData(data, "caffeine_morning"),
+          caffeineAfternoon: this.toLoMedHiXYData(data, "caffeine_morning"),
+          caffeineEvening: this.toLoMedHiXYData(data, "caffeine_evening"),
+          napMorning: this.toTrueFalsePieData(data, "nap_morning"),
+          napAfternoon: this.toTrueFalsePieData(data, "nap_afternoon"),
+          napEvening: this.toTrueFalsePieData(data, "nap_evening"),
         });
       });
   }
 
   render() {
-    const myData = [{ angle: 1 }, { angle: 5 }, { angle: 2 }];
-
     return (
       <div>
         <LoggedInNavBar history={this.props.history} />
         <Box p={"5%"}>
           <Grid container spacing={5}>
-            <Grid item xs={4}>
+            <Grid item md={4} sm={6} xs={12}>
               {/*empty*/}
             </Grid>
-            <Grid container item xs={4} justify="center">
+            <Grid container item md={4} sm={6} xs={12} justify="center">
               <Typography variant={"h5"}>
                 View days when you wake up feeling
               </Typography>
@@ -118,47 +156,59 @@ export default class Summary extends React.Component {
                 onChange={this.handleMorningFeelingChange}
               />
             </Grid>
-            <Grid container item xs={4}>
+            <Grid container item md={4} sm={6} xs={12}>
               {/*empty*/}
             </Grid>
-            <Grid container item sm={3}>
-              <Box p={"5%"}>
-                <ScatterChart data={this.state.hoursData} xDomain={[0, 9]} />
-              </Box>
+            <Grid container item md={4} sm={6} xs={12}>
+              <SLLineChart
+                data={this.state.hoursData}
+                XLabel={"Hours of sleep"}
+              />
               <Typography variant={"h5"} display="inline">
                 Hours of sleep
               </Typography>
             </Grid>
-            <Grid container item sm={3}>
-              <Box p={"5%"}>
-                <ScatterChart
-                  data={this.state.caffeineMorningData}
-                  xDomain={[0, 4]}
-                />
-              </Box>
+            <Grid container item md={4} sm={6} xs={12}>
+              <SLBarChart
+                data={this.state.caffeineMorning}
+                XLabel={"Morning caffeine"}
+              />
               <Typography variant={"h5"}>Caffeine morning</Typography>
             </Grid>
-            <Grid container item sm={3}>
-              <Box p={"5%"}>
-                <ScatterChart
-                  data={this.state.caffeineAfternoonData}
-                  xDomain={[0, 4]}
-                />
-              </Box>
+            <Grid container item md={4} sm={6} xs={12}>
+              <SLBarChart
+                data={this.state.caffeineAfternoon}
+                XLabel={"Afternoon caffeine"}
+              />
               <Typography variant={"h5"}>Caffeine afternoon</Typography>
             </Grid>
-            <Grid container item sm={3}>
-              <Box p={"5%"}>
-                <ScatterChart
-                  data={this.state.caffeineEveningData}
-                  xDomain={[0, 4]}
-                />
-              </Box>
+            <Grid container item md={4} sm={6} xs={12}>
+              <SLBarChart
+                data={this.state.eveningCaffeine}
+                XLabel={"Evening caffeine"}
+              />
               <Typography variant={"h5"} display="inline">
                 Caffeine evening
               </Typography>
             </Grid>
-            {/*<PieChart data={myData} />*/}
+            <Grid container item md={4} sm={6} xs={12}>
+              <SLPieChart data={this.state.napMorning} />
+              <Typography variant={"h5"} display="inline">
+                Morning nap
+              </Typography>
+            </Grid>
+            <Grid container item md={4} sm={6} xs={12}>
+              <SLPieChart data={this.state.napAfternoon} />
+              <Typography variant={"h5"} display="inline">
+                Afternoon nap
+              </Typography>
+            </Grid>
+            <Grid container item md={4} sm={6} xs={12}>
+              <SLPieChart data={this.state.napEvening} />
+              <Typography variant={"h5"} display="inline">
+                Evening nap
+              </Typography>
+            </Grid>
           </Grid>
         </Box>
       </div>
