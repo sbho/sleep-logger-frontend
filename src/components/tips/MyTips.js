@@ -36,7 +36,7 @@ export default function MyTips(props) {
   const tipBoxes = [];
   tips.forEach((t) =>
     tipBoxes.push(
-      <Grid item xs={4}>
+      <Grid item md={4} sm={6} xs={12}>
         <DeletableTipBox content={t.content} id={t.id} />
       </Grid>
     )
@@ -47,10 +47,10 @@ export default function MyTips(props) {
       <LoggedInNavBar history={props.history} />
       {hasNoTip && (
         <Grid container spacing={2}>
-          <Grid container item xs={4}>
+          <Grid container item md={4} sm={6} xs={12}>
             {/*empty*/}
           </Grid>
-          <Grid container item xs={4}>
+          <Grid container item md={4} sm={6} xs={12}>
             <Box p={"5%"}>
               <Typography variant={"h5"}>
                 You have not saved any tip. Time to save some!
@@ -67,14 +67,16 @@ export default function MyTips(props) {
               </Box>
             </Box>
           </Grid>
-          <Grid container item xs={4}>
+          <Grid container item md={4} sm={6} xs={12}>
             {/*empty*/}
           </Grid>
         </Grid>
       )}
-      <Grid container spacing={2}>
-        <Box p={"5%"}>{tipBoxes}</Box>
-      </Grid>
+      <Box p={"5%"}>
+        <Grid container spacing={2}>
+          {tipBoxes}
+        </Grid>
+      </Box>
     </div>
   );
 }
