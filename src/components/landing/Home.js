@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -36,7 +37,7 @@ function Hero() {
         <tr>
           <td colSpan="2">
             <Box pb={3}>
-              <Typography variant="h2">Your personal sleep diary.</Typography>
+              <Typography variant="h3">Your personal sleep diary.</Typography>
             </Box>
           </td>
         </tr>
@@ -79,54 +80,76 @@ function Video() {
 
 function Feature() {
   return (
-    <table>
-      <tr>
-        <td colSpan="4">
-          <Box p={3} pb={5} align={"center"}>
-            <Typography variant="h3">Features</Typography>
-          </Box>
-        </td>
-      </tr>
-      <tr>
-        <td width={"20%"} align={"center"}>
-          <NotesIcon style={{ fontSize: 80 }} />
-        </td>
-        <td width={"30%"} align={"left"}>
-          <Typography variant="h6">
-            Log your sleeps, naps, caffeine intake, and mood.{" "}
-          </Typography>
-        </td>
-        <td width={"20%"} align={"center"}>
-          <PhoneIphoneIcon style={{ fontSize: 80 }} />
-        </td>
-        <td align={"left"}>
-          <Typography variant="h6">Mobile client. </Typography>
-        </td>
-      </tr>
-      <tr>
-        <td width={"20%"} align={"center"}>
-          <BarChartIcon style={{ fontSize: 80 }} />
-        </td>
-        <td width={"30%"} align={"left"}>
-          <Typography variant="h6">Trends visualization. </Typography>
-        </td>
-        <td width={"20%"} align={"center"}>
-          <TrackChangesIcon style={{ fontSize: 80 }} />
-        </td>
-        <td align={"left"}>
-          <Typography variant="h6">
-            Goal setting, integrated with calendar and notification.
-          </Typography>
-        </td>
-      </tr>
-      <tr>
-        <td width={"20%"} align={"center"}>
-          <DoneAllIcon style={{ fontSize: 80 }} />
-        </td>
-        <td width={"30%"} align={"left"}>
-          <Typography variant="h6">Tips of the day. </Typography>
-        </td>
-      </tr>
-    </table>
+    <div>
+      <Box p={"3%"} pb={"5%"} align={"center"}>
+        <Typography variant={"h4"}>Features</Typography>
+      </Box>
+      <Grid container spacing={2}>
+        <Grid container item md={6} sm={12}>
+          <table width={"100%"}>
+            <tr>
+              <td width={"40%"} align={"center"}>
+                <NotesIcon style={{ fontSize: 80 }} />
+              </td>
+              <td width={"60%"} align={"left"}>
+                <Typography variant="h6">
+                  Log your sleeps, naps, caffeine intake, and mood.{" "}
+                </Typography>
+              </td>
+            </tr>
+          </table>
+        </Grid>
+        <Grid container item md={6} sm={12}>
+          <table width={"100%"}>
+            <tr>
+              <td width={"40%"} align={"center"}>
+                <PhoneIphoneIcon style={{ fontSize: 80 }} />
+              </td>
+              <td width={"60%"} align={"left"}>
+                <Typography variant="h6">Mobile app.</Typography>
+              </td>
+            </tr>
+          </table>
+        </Grid>
+        <Grid container item md={6} sm={12}>
+          <table width={"100%"}>
+            <tr>
+              <td width={"40%"} align={"center"}>
+                <BarChartIcon style={{ fontSize: 80 }} />
+              </td>
+              <td width={"60%"} align={"left"}>
+                <Typography variant="h6">Trends visualization.</Typography>
+              </td>
+            </tr>
+          </table>
+        </Grid>
+        <Grid container item md={6} sm={12}>
+          <table width={"100%"}>
+            <tr>
+              <td width={"40%"} align={"center"}>
+                <TrackChangesIcon style={{ fontSize: 80 }} />
+              </td>
+              <td width={"60%"} align={"left"}>
+                <Typography variant="h6">
+                  Goal setting, integrated with calendar and notification.
+                </Typography>
+              </td>
+            </tr>
+          </table>
+        </Grid>
+        <Grid container item md={6} sm={12}>
+          <table width={"100%"}>
+            <tr>
+              <td width={"40%"} align={"center"}>
+                <DoneAllIcon style={{ fontSize: 80 }} />
+              </td>
+              <td width={"60%"} align={"left"}>
+                <Typography variant="h6">Tips of the day.</Typography>
+              </td>
+            </tr>
+          </table>
+        </Grid>
+      </Grid>
+    </div>
   );
 }
