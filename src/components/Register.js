@@ -147,13 +147,13 @@ export default function Register() {
   return (
     <div>
       <HomeNavBar />
-      <Box p={10} pt={10}>
+      <Box p={"10%"}>
         <Paper>
-          <Box p={5}>
-            <Box p={2}>
+          <Box p={"5%"}>
+            <Box p={"2%"}>
               <Typography variant={"h5"}>Register</Typography>
             </Box>
-            <Box p={2} align={"center"}>
+            <Box p={"2%"} align={"center"}>
               <TextField
                 id="name"
                 onChange={handleNameChange}
@@ -162,7 +162,7 @@ export default function Register() {
                 autoFocus
               />
             </Box>
-            <Box p={2} align={"center"}>
+            <Box p={"2%"} align={"center"}>
               <TextField
                 id="email"
                 onChange={handleEmailChange}
@@ -170,7 +170,7 @@ export default function Register() {
                 fullWidth
               />
             </Box>
-            <Box p={2} align={"center"}>
+            <Box p={"2%"} align={"center"}>
               <TextField
                 id="password"
                 onChange={handlePasswordChange}
@@ -182,7 +182,7 @@ export default function Register() {
                 fullWidth
               />
             </Box>
-            <Box p={2} align={"center"}>
+            <Box p={"2%"} align={"center"}>
               <TextField
                 id="password_confirmation"
                 onChange={handlePasswordConfirmationChange}
@@ -191,7 +191,7 @@ export default function Register() {
                 fullWidth
               />
             </Box>
-            <Box p={2} align={"center"}>
+            <Box p={"2%"} align={"center"}>
               <Button onClick={handleSubmit} variant="outlined" color="primary">
                 Register
               </Button>
