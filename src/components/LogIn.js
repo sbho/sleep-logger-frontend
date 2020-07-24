@@ -31,9 +31,9 @@ export default function LogIn(props) {
   return (
     <div>
       <HomeNavBar />
-      <Box p={10}>
+      <Box p={"10%"}>
         <Paper>
-          <Box p={5}>
+          <Box p={"5%"}>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -46,10 +46,10 @@ export default function LogIn(props) {
                 );
               }}
             >
-              <Box p={2}>
+              <Box p={"2%"}>
                 <Typography variant={"h5"}>Sign in</Typography>
               </Box>
-              <Box p={2} align={"center"}>
+              <Box p={"2%"} align={"center"}>
                 <TextField
                   onChange={handleEmailChange}
                   id="email"
@@ -58,7 +58,7 @@ export default function LogIn(props) {
                   autoFocus
                 />
               </Box>
-              <Box p={2} align={"center"}>
+              <Box p={"2%"} align={"center"}>
                 <TextField
                   onChange={handlePasswordChange}
                   id="password"
@@ -67,7 +67,7 @@ export default function LogIn(props) {
                   fullWidth
                 />
               </Box>
-              <Box p={2} align={"center"}>
+              <Box p={"2%"} align={"center"}>
                 <Button type="submit" variant="outlined" color="primary">
                   Sign In
                 </Button>
