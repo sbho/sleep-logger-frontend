@@ -116,7 +116,11 @@ export default function DiaryEveningPage(props) {
           <Typography variant={"h6"}>Morning?</Typography>
         </Grid>
         <Grid container item xs={"9"}>
-          <Checkbox checked={napMorning} onChange={handleNapMorningChange} />
+          <Checkbox
+            checked={napMorning}
+            onChange={handleNapMorningChange}
+            color="secondary"
+          />
         </Grid>
         <Grid container item xs={"3"}>
           <Typography variant={"h6"}>Afternoon?</Typography>
@@ -125,13 +129,18 @@ export default function DiaryEveningPage(props) {
           <Checkbox
             checked={napAfternoon}
             onChange={handleNapAfternoonChange}
+            color="secondary"
           />
         </Grid>
         <Grid container item xs={"3"}>
           <Typography variant={"h6"}>Evening?</Typography>
         </Grid>
         <Grid container item xs={"9"}>
-          <Checkbox checked={napEvening} onChange={handleNapEveningChange} />
+          <Checkbox
+            checked={napEvening}
+            onChange={handleNapEveningChange}
+            color="secondary"
+          />
         </Grid>
       </Grid>
       <Box p={3} align={"center"}>

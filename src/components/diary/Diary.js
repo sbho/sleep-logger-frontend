@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
+import Card from "@material-ui/core/Card";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
@@ -123,10 +124,18 @@ export default function Diary(props) {
             </table>
           </Box>
           <TimeOfDayTabPanel value={tabValue} index={0}>
-            <DiaryMorningPage />
+            <Card>
+              <Box p={"5%"}>
+                <DiaryMorningPage />
+              </Box>
+            </Card>
           </TimeOfDayTabPanel>
           <TimeOfDayTabPanel value={tabValue} index={1}>
-            <DiaryEveningPage />
+            <Card>
+              <Box p={"5%"}>
+                <DiaryEveningPage />
+              </Box>
+            </Card>
           </TimeOfDayTabPanel>
         </Grid>
       </Grid>

@@ -151,7 +151,7 @@ export default function Register() {
         <Paper>
           <Box p={"5%"}>
             <Box p={"2%"}>
-              <Typography variant={"h5"}>Register</Typography>
+              <Typography variant={"h4"}>Register</Typography>
             </Box>
             <Box p={"2%"} align={"center"}>
               <TextField

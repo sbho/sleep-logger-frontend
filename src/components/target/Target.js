@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import TimePicker from "../diary/TimePicker";
+import Card from "@material-ui/core/Card";
 
 export default function Target(props) {
   const [sleepTime, setSleepTime] = useState("07:30");
@@ -41,15 +42,30 @@ export default function Target(props) {
   return (
     <div>
       <LoggedInNavBar history={props.history} />
-      <Box mx={"38%"} my={"5%"}>
-        <Box p={"5%"}>
-          <Typography variant="h2">Today I want to sleep at:</Typography>
-          <TimePicker onChange={handleSleepTimeChange} />
-        </Box>
-        <Button variant="contained">
-          <AddToCalendar event={event} />
-        </Button>
-      </Box>
+
+      <table width={"100%"}>
+        <tr>
+          <td align={"center"}>
+            <Box width={300} p={"5%"}>
+              <Card>
+                <Box p={"5%"}>
+                  <Typography variant={"h5"}>
+                    Today I want to sleep at:
+                  </Typography>
+                </Box>
+                <Box p={"5%"}>
+                  <TimePicker onChange={handleSleepTimeChange} />
+                </Box>
+                <Box p={"5%"}>
+                  <Button variant="contained">
+                    <AddToCalendar event={event} />
+                  </Button>
+                </Box>
+              </Card>
+            </Box>
+          </td>
+        </tr>
+      </table>
     </div>
   );
 }

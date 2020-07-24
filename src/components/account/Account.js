@@ -168,7 +168,7 @@ export default function Account(props) {
         <Paper>
           <Box p={5}>
             <Box p={2}>
-              <Typography variant={"h5"}>Account</Typography>
+              <Typography variant={"h4"}>Account</Typography>
             </Box>
             <form onSubmit={handleSubmit}>
               <Box p={2} align={"center"}>

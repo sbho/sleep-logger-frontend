@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import Card from "@material-ui/core/Card";
 import LoggedInNavBar from "../nav/LoggedInNavBar";
 import Typography from "@material-ui/core/Typography";
 import SmileyGroup from "../diary/SmileyGroup";
@@ -143,73 +144,77 @@ export default class Summary extends React.Component {
       <div>
         <LoggedInNavBar history={this.props.history} />
         <Box p={"5%"}>
-          <Grid container spacing={5}>
-            <Grid item md={4} sm={6} xs={12}>
-              {/*empty*/}
-            </Grid>
-            <Grid container item md={4} sm={6} xs={12} justify="center">
-              <Typography variant={"h5"}>
-                View days when you wake up feeling
-              </Typography>
-              <SmileyGroup
-                toggling={this.state.morningFeeling}
-                onChange={this.handleMorningFeelingChange}
-              />
-            </Grid>
-            <Grid container item md={4} sm={6} xs={12}>
-              {/*empty*/}
-            </Grid>
-            <Grid container item md={4} sm={6} xs={12}>
-              <SLLineChart
-                data={this.state.hoursData}
-                XLabel={"Hours of sleep"}
-              />
-              <Typography variant={"h5"} display="inline">
-                Hours of sleep
-              </Typography>
-            </Grid>
-            <Grid container item md={4} sm={6} xs={12}>
-              <SLBarChart
-                data={this.state.caffeineMorning}
-                XLabel={"Morning caffeine"}
-              />
-              <Typography variant={"h5"}>Caffeine morning</Typography>
-            </Grid>
-            <Grid container item md={4} sm={6} xs={12}>
-              <SLBarChart
-                data={this.state.caffeineAfternoon}
-                XLabel={"Afternoon caffeine"}
-              />
-              <Typography variant={"h5"}>Caffeine afternoon</Typography>
-            </Grid>
-            <Grid container item md={4} sm={6} xs={12}>
-              <SLBarChart
-                data={this.state.eveningCaffeine}
-                XLabel={"Evening caffeine"}
-              />
-              <Typography variant={"h5"} display="inline">
-                Caffeine evening
-              </Typography>
-            </Grid>
-            <Grid container item md={4} sm={6} xs={12}>
-              <SLPieChart data={this.state.napMorning} />
-              <Typography variant={"h5"} display="inline">
-                Morning nap
-              </Typography>
-            </Grid>
-            <Grid container item md={4} sm={6} xs={12}>
-              <SLPieChart data={this.state.napAfternoon} />
-              <Typography variant={"h5"} display="inline">
-                Afternoon nap
-              </Typography>
-            </Grid>
-            <Grid container item md={4} sm={6} xs={12}>
-              <SLPieChart data={this.state.napEvening} />
-              <Typography variant={"h5"} display="inline">
-                Evening nap
-              </Typography>
-            </Grid>
-          </Grid>
+          <Card>
+            <Box p={"5%"}>
+              <Grid container spacing={5}>
+                <Grid item md={4} sm={6} xs={12}>
+                  {/*empty*/}
+                </Grid>
+                <Grid container item md={4} sm={6} xs={12} justify="center">
+                  <Typography variant={"h5"}>
+                    View days when you wake up feeling
+                  </Typography>
+                  <SmileyGroup
+                    toggling={this.state.morningFeeling}
+                    onChange={this.handleMorningFeelingChange}
+                  />
+                </Grid>
+                <Grid container item md={4} sm={6} xs={12}>
+                  {/*empty*/}
+                </Grid>
+                <Grid container item md={4} sm={6} xs={12}>
+                  <SLLineChart
+                    data={this.state.hoursData}
+                    XLabel={"Hours of sleep"}
+                  />
+                  <Typography variant={"h5"} display="inline">
+                    Hours of sleep
+                  </Typography>
+                </Grid>
+                <Grid container item md={4} sm={6} xs={12}>
+                  <SLBarChart
+                    data={this.state.caffeineMorning}
+                    XLabel={"Morning caffeine"}
+                  />
+                  <Typography variant={"h5"}>Caffeine morning</Typography>
+                </Grid>
+                <Grid container item md={4} sm={6} xs={12}>
+                  <SLBarChart
+                    data={this.state.caffeineAfternoon}
+                    XLabel={"Afternoon caffeine"}
+                  />
+                  <Typography variant={"h5"}>Caffeine afternoon</Typography>
+                </Grid>
+                <Grid container item md={4} sm={6} xs={12}>
+                  <SLBarChart
+                    data={this.state.eveningCaffeine}
+                    XLabel={"Evening caffeine"}
+                  />
+                  <Typography variant={"h5"} display="inline">
+                    Caffeine evening
+                  </Typography>
+                </Grid>
+                <Grid container item md={4} sm={6} xs={12}>
+                  <SLPieChart data={this.state.napMorning} />
+                  <Typography variant={"h5"} display="inline">
+                    Morning nap
+                  </Typography>
+                </Grid>
+                <Grid container item md={4} sm={6} xs={12}>
+                  <SLPieChart data={this.state.napAfternoon} />
+                  <Typography variant={"h5"} display="inline">
+                    Afternoon nap
+                  </Typography>
+                </Grid>
+                <Grid container item md={4} sm={6} xs={12}>
+                  <SLPieChart data={this.state.napEvening} />
+                  <Typography variant={"h5"} display="inline">
+                    Evening nap
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Box>
+          </Card>
         </Box>
       </div>
     );

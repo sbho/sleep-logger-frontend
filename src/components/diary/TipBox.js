@@ -9,7 +9,7 @@ export default function TipBox(props) {
     <Card>
       <Box p={3}>
         <Box p={2}>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h4" component="h2">
             Tip
           </Typography>
           <Typography

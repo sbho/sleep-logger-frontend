@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { createMuiTheme } from "@material-ui/core/styles";
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
@@ -12,13 +14,35 @@ import BarChartIcon from "@material-ui/icons/BarChart";
 import "react-calendar/dist/Calendar.css";
 import ReactPlayer from "react-player";
 import HomeNavBar from "../nav/HomeNavBar";
-import { Link, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 import { Hidden } from "@material-ui/core";
+
+const theme = createMuiTheme({
+  typography: {
+    h1: {
+      color: "white",
+    },
+    h3: {
+      color: "white",
+    },
+    h5: {
+      color: "white",
+    },
+    h6: {
+      color: "white",
+    },
+  },
+  props: {
+    MuiSvgIcon: {
+      htmlColor: "white",
+    },
+  },
+});
 
 //Landing page
 export default function Home() {
   return (
-    <div>
+    <MuiThemeProvider theme={theme}>
       <HomeNavBar />
       <Box mx={"15%"} my={"5%"}>
         <Hero />
@@ -26,7 +50,7 @@ export default function Home() {
         <Divider />
         <Feature />
       </Box>
-    </div>
+    </MuiThemeProvider>
   );
 }
 
@@ -82,7 +106,7 @@ function Feature() {
   return (
     <div>
       <Box p={"3%"} pb={"5%"} align={"center"}>
-        <Typography variant={"h4"}>Features</Typography>
+        <Typography variant={"h5"}>Features</Typography>
       </Box>
       <Grid container spacing={2}>
         <Grid container item md={6} sm={12}>

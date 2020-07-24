@@ -47,7 +47,7 @@ export default function LogIn(props) {
               }}
             >
               <Box p={"2%"}>
-                <Typography variant={"h5"}>Sign in</Typography>
+                <Typography variant={"h4"}>Sign in</Typography>
               </Box>
               <Box p={"2%"} align={"center"}>
                 <TextField
