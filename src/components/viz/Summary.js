@@ -43,7 +43,7 @@ export default class Summary extends React.Component {
         y: k.count,
       })
     );
-    return XYData;
+    return XYData.sort((a, b) => a.x >= b.x);
   };
 
   toXYData = (data, fieldName) => {
@@ -62,7 +62,7 @@ export default class Summary extends React.Component {
     data[fieldName].forEach((k) =>
       XYData.push({ x: k[fieldName] ? "Yes" : "No", y: k.count })
     );
-    return XYData;
+    return XYData.sort((a, b) => (a === "Yes" ? -1 : 1));
   };
 
   componentDidMount() {
