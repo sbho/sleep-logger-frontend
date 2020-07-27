@@ -41,6 +41,7 @@ export default function DiaryMorningPage(props) {
   );
   const [easeOfSleep, setEaseOfSleep] = useState(0);
   const [morningFeeling, setMorningFeeling] = useState(0);
+  const [wrongHoursSnackbarOpen, setWrongHoursSnackbarOpen] = useState(false);
   const [saveEntrySnackbarOpen, setSaveEntrySnackbarOpen] = useState(false);
 
   const handleBedTimeChange = (e) => {
@@ -80,12 +81,15 @@ export default function DiaryMorningPage(props) {
       "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
       Authorization: "Bearer " + localStorage.getItem("token"),
     };
-
-    fetch(BASE_URL + "/v1/morning_entries", {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(body),
-    }).then(setSaveEntrySnackbarOpen(true));
+    if (hoursOfSleep > 0) {
+      fetch(BASE_URL + "/v1/morning_entries", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      }).then(setSaveEntrySnackbarOpen(true));
+    } else {
+      setWrongHoursSnackbarOpen(true);
+    }
   };
 
   return (
@@ -149,6 +153,11 @@ export default function DiaryMorningPage(props) {
         open={saveEntrySnackbarOpen}
         autoHideDuration={3000}
         message={"Entry saved."}
+      />
+      <Snackbar
+        open={wrongHoursSnackbarOpen}
+        autoHideDuration={3000}
+        message={"Wrong hours snackbar open."}
       />
     </div>
   );
