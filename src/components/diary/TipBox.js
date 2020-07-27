@@ -20,9 +20,6 @@ export default function TipBox(props) {
           >
             {props.content}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            - National Sleep Foundation
-          </Typography>
         </Box>
         <Box align={"right"}>
           <Button size="small" color="primary" onClick={props.onSave}>

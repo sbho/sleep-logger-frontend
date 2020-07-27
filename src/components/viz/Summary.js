@@ -54,7 +54,7 @@ export default class Summary extends React.Component {
         y: k.count,
       })
     );
-    return XYData;
+    return XYData.sort((a, b) => a.x >= b.x);
   };
 
   toTrueFalsePieData = (data, fieldName) => {
@@ -164,7 +164,7 @@ export default class Summary extends React.Component {
                 </Grid>
                 <Grid container item md={4} sm={6} xs={12}>
                   <SLLineChart
-                    data={this.state.hoursData}
+                    data={this.state.hoursData.sort((a, b) => a.x - b.x)}
                     XLabel={"Hours of sleep"}
                   />
                   <Typography variant={"h5"} display="inline">
