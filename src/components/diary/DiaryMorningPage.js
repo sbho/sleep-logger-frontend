@@ -157,7 +157,7 @@ export default function DiaryMorningPage(props) {
       <Snackbar
         open={wrongHoursSnackbarOpen}
         autoHideDuration={3000}
-        message={"Wrong hours snackbar open."}
+        message={"Wrong sleeping hours."}
       />
     </div>
   );
