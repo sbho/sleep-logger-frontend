@@ -25,7 +25,7 @@ export default function SLLineChart(props) {
         label={{
           value: "Number of Days",
           angle: -90,
-          position: "left",
+          position: "insideLeft",
         }}
       ></YAxis>
       <Tooltip />
