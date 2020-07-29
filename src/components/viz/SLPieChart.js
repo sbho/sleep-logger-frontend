@@ -1,7 +1,8 @@
 import React from "react";
-import { PieChart, Pie, Legend } from "recharts";
+import { PieChart, Pie, Cell, Label } from "recharts";
 
 export default function SLPieChart(props) {
+  const colors = ["#002984", "#757de8"];
   return (
     <PieChart width={300} height={250}>
       <Pie
@@ -11,10 +12,13 @@ export default function SLPieChart(props) {
         cx="50%"
         cy="50%"
         outerRadius={110}
-        fill="#666"
         label
-      />
-      <Legend />
+      >
+        {props.data.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={colors[index]} />
+        ))}
+      </Pie>
+      <Label />
     </PieChart>
   );
 }

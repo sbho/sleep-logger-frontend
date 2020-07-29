@@ -29,7 +29,7 @@ export default function SLLineChart(props) {
         }}
       ></YAxis>
       <Tooltip />
-      <Line type="monotone" dataKey="y" stroke="#82ca9d" />
+      <Line type="monotone" dataKey="y" stroke="#002984" />
     </LineChart>
   );
 }

@@ -3,7 +3,7 @@ import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar } from "recharts";
 
 export default function SLBarChart(props) {
   return (
-    <BarChart width={300} height={300} data={props.data}>
+    <BarChart width={300} height={250} data={props.data}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="x" />
       <YAxis
@@ -14,7 +14,7 @@ export default function SLBarChart(props) {
         }}
       />
       <Tooltip />
-      <Bar dataKey="y" fill="#82ca9d" />
+      <Bar dataKey="y" fill="#002984" />
     </BarChart>
   );
 }
