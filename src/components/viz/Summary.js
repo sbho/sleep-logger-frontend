@@ -188,7 +188,7 @@ export default class Summary extends React.Component {
                 </Grid>
                 <Grid container item md={4} sm={6} xs={12}>
                   <SLBarChart
-                    data={this.state.eveningCaffeine}
+                    data={this.state.caffeineEvening}
                     XLabel={"Evening caffeine"}
                   />
                   <Typography variant={"h5"} display="inline">
