@@ -10,7 +10,7 @@ export default function SLBarChart(props) {
         label={{
           value: "Number of Days",
           angle: -90,
-          position: "insideLeft",
+          position: "left",
         }}
       />
       <Tooltip />
