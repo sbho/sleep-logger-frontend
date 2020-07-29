@@ -94,7 +94,7 @@ export default class Summary extends React.Component {
         this.setState({
           hoursData: this.toXYData(data, "hours"),
           caffeineMorning: this.toLoMedHiXYData(data, "caffeine_morning"),
-          caffeineAfternoon: this.toLoMedHiXYData(data, "caffeine_morning"),
+          caffeineAfternoon: this.toLoMedHiXYData(data, "caffeine_afternoon"),
           caffeineEvening: this.toLoMedHiXYData(data, "caffeine_evening"),
           napMorning: this.toTrueFalsePieData(data, "nap_morning"),
           napAfternoon: this.toTrueFalsePieData(data, "nap_afternoon"),
@@ -131,7 +131,7 @@ export default class Summary extends React.Component {
         this.setState({
           hoursData: this.toXYData(data, "hours"),
           caffeineMorning: this.toLoMedHiXYData(data, "caffeine_morning"),
-          caffeineAfternoon: this.toLoMedHiXYData(data, "caffeine_morning"),
+          caffeineAfternoon: this.toLoMedHiXYData(data, "caffeine_afternoon"),
           caffeineEvening: this.toLoMedHiXYData(data, "caffeine_evening"),
           napMorning: this.toTrueFalsePieData(data, "nap_morning"),
           napAfternoon: this.toTrueFalsePieData(data, "nap_afternoon"),
