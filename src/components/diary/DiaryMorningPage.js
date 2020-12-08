@@ -96,7 +96,7 @@ export default function DiaryMorningPage(props) {
     <div>
       <Grid container spacing={10}>
         <Grid container item xs={"6"}>
-          <Typography variant={"h5"}>When did you sleep last night?</Typography>
+          <Typography variant={"h6"}>When did you sleep last night?</Typography>
         </Grid>
         <Grid container item xs={"6"}>
           <TimePicker onChange={handleBedTimeChange} />
@@ -105,7 +105,7 @@ export default function DiaryMorningPage(props) {
 
       <Grid container spacing={10}>
         <Grid container item xs={"6"}>
-          <Typography variant={"h5"}>When did you wake up?</Typography>
+          <Typography variant={"h6"}>When did you wake up?</Typography>
         </Grid>
         <Grid container item xs={"6"}>
           <TimePicker onChange={handleWakeUpTimeChange} />
@@ -114,7 +114,7 @@ export default function DiaryMorningPage(props) {
 
       <Grid container spacing={10}>
         <Grid container item xs={"6"}>
-          <Typography variant={"h5"}>Was it easy for you to sleep?</Typography>
+          <Typography variant={"h6"}>Was it easy for you to sleep?</Typography>
         </Grid>
         <Grid container item xs={"6"}>
           <SmileyGroup
@@ -126,7 +126,7 @@ export default function DiaryMorningPage(props) {
 
       <Grid container spacing={10}>
         <Grid container item xs={"6"}>
-          <Typography variant={"h5"}>
+          <Typography variant={"h6"}>
             How do you feel when you wake up?
           </Typography>
         </Grid>

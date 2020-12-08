@@ -90,39 +90,6 @@ export default function Diary(props) {
           </Grid>
         </Hidden>
         <Grid item sm={7}>
-          <Box my={"5%"} mx={"3%"}>
-            <table style={{ width: "100%" }}>
-              <tr>
-                <td align={"right"}>
-                  {/*Go back to the day before.*/}
-                  <IconButton
-                    onClick={() => {
-                      let prevDay = new Date();
-                      prevDay.setDate(date.getDate() - 1);
-                      setDate(prevDay);
-                    }}
-                  >
-                    <ArrowBackIosIcon />
-                  </IconButton>
-                </td>
-                <td align={"center"}>
-                  <Typography variant={"h5"}>{date.toDateString()}</Typography>
-                </td>
-                <td align={"left"}>
-                  {/*Go to the next day*/}
-                  <IconButton
-                    onClick={() => {
-                      let nextDay = new Date();
-                      nextDay.setDate(date.getDate() + 1);
-                      setDate(nextDay);
-                    }}
-                  >
-                    <ArrowForwardIosIcon />
-                  </IconButton>
-                </td>
-              </tr>
-            </table>
-          </Box>
           <TimeOfDayTabPanel value={tabValue} index={0}>
             <Card>
               <Box p={"5%"}>

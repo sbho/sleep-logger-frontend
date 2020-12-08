@@ -62,14 +62,14 @@ export default function DiaryEveningPage(props) {
       method: "POST",
       headers: headers,
       body: JSON.stringify(body),
-    }).then(this.setState({ saveEntrySnackbarOpen: true }));
+    }).then((setSaveEntrySnackbarOpen: true));
   };
 
   return (
     <div>
       <Grid container spacing={10}>
         <Grid container item>
-          <Typography variant={"h5"}>
+          <Typography variant={"h4"}>
             How much caffeine did you take?
           </Typography>
         </Grid>
@@ -107,7 +107,7 @@ export default function DiaryEveningPage(props) {
 
       <Grid container spacing={10}>
         <Grid container item>
-          <Typography variant={"h5"}>Did you nap in the </Typography>
+          <Typography variant={"h4"}>Did you nap in the </Typography>
         </Grid>
       </Grid>
 

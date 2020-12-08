@@ -144,77 +144,69 @@ export default class Summary extends React.Component {
     return (
       <div>
         <LoggedInNavBar history={this.props.history} />
-        <Box p={"5%"}>
+        <Box px={"20%"} align={"center"}>
           <Card>
             <Box p={"5%"}>
-              <Grid container spacing={5}>
-                <Grid item md={4} sm={6} xs={12}>
-                  {/*empty*/}
-                </Grid>
-                <Grid container item md={4} sm={6} xs={12} justify="center">
-                  <Typography variant={"h5"}>
-                    View days when you wake up feeling
-                  </Typography>
-                  <SmileyGroup
-                    toggling={this.state.morningFeeling}
-                    onChange={this.handleMorningFeelingChange}
-                  />
-                </Grid>
-                <Grid container item md={4} sm={6} xs={12}>
-                  {/*empty*/}
-                </Grid>
-                <Grid container item md={4} sm={6} xs={12}>
-                  <SLLineChart
-                    data={this.state.hoursData.sort((a, b) => a.x - b.x)}
-                    XLabel={"Hours of sleep"}
-                  />
-                  <Typography variant={"h5"} display="inline">
-                    Hours of sleep
-                  </Typography>
-                </Grid>
-                <Grid container item md={4} sm={6} xs={12}>
-                  <SLBarChart
-                    data={this.state.caffeineMorning}
-                    XLabel={"Morning caffeine"}
-                  />
-                  <Typography variant={"h5"}>Caffeine morning</Typography>
-                </Grid>
-                <Grid container item md={4} sm={6} xs={12}>
-                  <SLBarChart
-                    data={this.state.caffeineAfternoon}
-                    XLabel={"Afternoon caffeine"}
-                  />
-                  <Typography variant={"h5"}>Caffeine afternoon</Typography>
-                </Grid>
-                <Grid container item md={4} sm={6} xs={12}>
-                  <SLBarChart
-                    data={this.state.caffeineEvening}
-                    XLabel={"Evening caffeine"}
-                  />
-                  <Typography variant={"h5"} display="inline">
-                    Caffeine evening
-                  </Typography>
-                </Grid>
-                <Grid container item md={4} sm={6} xs={12}>
-                  <SLPieChart data={this.state.napMorning} />
-                  <Typography variant={"h5"} display="inline">
-                    Morning nap
-                  </Typography>
-                </Grid>
-                <Grid container item md={4} sm={6} xs={12}>
-                  <SLPieChart data={this.state.napAfternoon} />
-                  <Typography variant={"h5"} display="inline">
-                    Afternoon nap
-                  </Typography>
-                </Grid>
-                <Grid container item md={4} sm={6} xs={12}>
-                  <SLPieChart data={this.state.napEvening} />
-                  <Typography variant={"h5"} display="inline">
-                    Evening nap
-                  </Typography>
-                </Grid>
-              </Grid>
+              <Typography variant={"h6"}>
+                View days when you wake up feeling
+              </Typography>
             </Box>
+            <Box p={"5%"}>
+              <SmileyGroup
+                toggling={this.state.morningFeeling}
+                onChange={this.handleMorningFeelingChange}
+              />
+            </Box>
+            <Grid container item md={4} sm={6} xs={12}>
+              <Typography variant={"h6"} display="inline">
+                Hours of sleep
+              </Typography>
+              <SLLineChart
+                data={this.state.hoursData.sort((a, b) => a.x - b.x)}
+                XLabel={"Hours of sleep"}
+              />
+            </Grid>
+            <Grid container item md={4} sm={6} xs={12}>
+              <Typography variant={"h6"}>Caffeine morning</Typography>
+              <SLBarChart
+                data={this.state.caffeineMorning}
+                XLabel={"Morning caffeine"}
+              />
+            </Grid>
+            <Grid container item md={4} sm={6} xs={12}>
+              <Typography variant={"h6"}>Caffeine afternoon</Typography>
+              <SLBarChart
+                data={this.state.caffeineAfternoon}
+                XLabel={"Afternoon caffeine"}
+              />
+            </Grid>
+            <Grid container item md={4} sm={6} xs={12}>
+              <Typography variant={"h6"} display="inline">
+                Caffeine evening the day before
+              </Typography>
+              <SLBarChart
+                data={this.state.caffeineEvening}
+                XLabel={"Evening caffeine"}
+              />
+            </Grid>
+            <Grid container item md={4} sm={6} xs={12}>
+              <Typography variant={"h6"} display="inline">
+                Morning nap the day before
+              </Typography>
+              <SLPieChart data={this.state.napMorning} />
+            </Grid>
+            <Grid container item md={4} sm={6} xs={12}>
+              <Typography variant={"h6"} display="inline">
+                Afternoon nap the day before
+              </Typography>
+              <SLPieChart data={this.state.napAfternoon} />
+            </Grid>
+            <Grid container item md={4} sm={6} xs={12}>
+              <Typography variant={"h6"} display="inline">
+                Evening nap the day before
+              </Typography>
+              <SLPieChart data={this.state.napEvening} />
+            </Grid>
           </Card>
         </Box>
       </div>
